@@ -1,0 +1,8 @@
+<meta>
+    <info name="Vehicle Spawner" author="René" type="script" />
+    
+    <script src="Server/Main.cs" type="server" lang="csharp" />
+
+    <script src="Client/vehicles.js" type="client" />
+    <script src="Client/main.js" type="client" />
+</meta>
