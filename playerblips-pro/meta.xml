@@ -1,0 +1,6 @@
+﻿<meta>
+	<info name="Playerblips Pro" description="Better blips on the minimap for players." author="Miss Melissa" type="script" />
+
+	<script src="Playerblips.cs" type="server" lang="csharp" />
+	<script src="playerblips.js" type="client" lang="javascript" />
+</meta>

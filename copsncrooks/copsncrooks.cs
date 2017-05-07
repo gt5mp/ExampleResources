@@ -44,26 +44,26 @@ public class CopsNCrooks : Script
 		Vehicles.Clear();
 
 		// Crooks
-		Vehicles.Add(API.createVehicle((VehicleHash)1777363799, new Vector3(634.32f, 622.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
-		Vehicles.Add(API.createVehicle((VehicleHash)1777363799, new Vector3(636.32f, 635.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
-		Vehicles.Add(API.createVehicle((VehicleHash)1777363799, new Vector3(631.32f, 613.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
+		Vehicles.Add(API.createVehicle(VehicleHash.Washington, new Vector3(634.32f, 622.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
+		Vehicles.Add(API.createVehicle(VehicleHash.Washington, new Vector3(636.32f, 635.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
+		Vehicles.Add(API.createVehicle(VehicleHash.Washington, new Vector3(631.32f, 613.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
 
-		Vehicles.Add(API.createVehicle((VehicleHash)1777363799, new Vector3(611.32f, 637.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
-		Vehicles.Add(API.createVehicle((VehicleHash)1777363799, new Vector3(607.32f, 626.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
-		Vehicles.Add(API.createVehicle((VehicleHash)1777363799, new Vector3(593.32f, 618.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
+		Vehicles.Add(API.createVehicle(VehicleHash.Washington, new Vector3(611.32f, 637.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
+		Vehicles.Add(API.createVehicle(VehicleHash.Washington, new Vector3(607.32f, 626.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
+		Vehicles.Add(API.createVehicle(VehicleHash.Washington, new Vector3(593.32f, 618.54f, 128.44f), new Vector3(0, 0, 250.89f), 0, 0));
 
-		Vehicles.Add(API.createVehicle((VehicleHash)(-114627507), new Vector3(631.5f, 642.54f, 128.44f), new Vector3(0, 0, 327.15f), 0, 0));
-		Vehicles.Add(API.createVehicle((VehicleHash)(-1660661558), new Vector3(644.09f, 599.09f, 129.01f), new Vector3(0, 0, 0.15f), 0, 0));
+		Vehicles.Add(API.createVehicle(VehicleHash.Limo2, new Vector3(631.5f, 642.54f, 128.44f), new Vector3(0, 0, 327.15f), 0, 0));
+		Vehicles.Add(API.createVehicle(VehicleHash.Maverick, new Vector3(644.09f, 599.09f, 129.01f), new Vector3(0, 0, 0.15f), 0, 0));
 
 		// Cops
-		Vehicles.Add(API.createVehicle((VehicleHash)(-1627000575), new Vector3(407.37f, -979.13f, 28.88f), new Vector3(0, 0, 52.84f), 111, 0));		
-		Vehicles.Add(API.createVehicle((VehicleHash)(-1627000575), new Vector3(407.37f, -983.99f, 28.88f), new Vector3(0, 0, 52.84f), 111, 0));		
-		Vehicles.Add(API.createVehicle((VehicleHash)(-1627000575), new Vector3(407.37f, -988.8f, 28.88f), new Vector3(0, 0, 52.84f), 111, 0));		
-		Vehicles.Add(API.createVehicle((VehicleHash)(-1627000575), new Vector3(407.37f, -992.76f, 28.88f), new Vector3(0, 0, 52.84f), 111, 0));		
-		Vehicles.Add(API.createVehicle((VehicleHash)(-1627000575), new Vector3(407.37f, -997.72f, 28.88f), new Vector3(0, 0, 52.84f), 111, 0));		
-		Vehicles.Add(API.createVehicle((VehicleHash)(-1627000575), new Vector3(393.51f, -981.3f, 28.96f), new Vector3(0, 0, 356.26f), 111, 0));		
+		Vehicles.Add(API.createVehicle(VehicleHash.Police2, new Vector3(407.37f, -979.13f, 28.88f), new Vector3(0, 0, 52.84f), 111, 0));		
+		Vehicles.Add(API.createVehicle(VehicleHash.Police2, new Vector3(407.37f, -983.99f, 28.88f), new Vector3(0, 0, 52.84f), 111, 0));		
+		Vehicles.Add(API.createVehicle(VehicleHash.Police2, new Vector3(407.37f, -988.8f, 28.88f), new Vector3(0, 0, 52.84f), 111, 0));		
+		Vehicles.Add(API.createVehicle(VehicleHash.Police2, new Vector3(407.37f, -992.76f, 28.88f), new Vector3(0, 0, 52.84f), 111, 0));		
+		Vehicles.Add(API.createVehicle(VehicleHash.Police2, new Vector3(407.37f, -997.72f, 28.88f), new Vector3(0, 0, 52.84f), 111, 0));		
+		Vehicles.Add(API.createVehicle(VehicleHash.Police2, new Vector3(393.51f, -981.3f, 28.96f), new Vector3(0, 0, 356.26f), 111, 0));		
 
-		Vehicles.Add(API.createVehicle((VehicleHash)(-1860900134), new Vector3(428.9f, -960.98f, 29.11f), new Vector3(0, 0, 90.12f), 111, 0));		
+		Vehicles.Add(API.createVehicle(VehicleHash.Insurgent, new Vector3(428.9f, -960.98f, 29.11f), new Vector3(0, 0, 90.12f), 111, 0));		
 	}
 
 	private void onResStart()

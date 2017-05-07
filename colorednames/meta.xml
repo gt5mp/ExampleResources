@@ -1,0 +1,7 @@
+﻿<meta>
+	<info name="Colored Names" description="Adds colors to players when they chat." author="Miss Melissa" type="script" />
+
+	<script src="ColoredNames.cs" type="server" lang="csharp" />
+
+	<export event="onGotColoredName" class="ColoredNames" />
+</meta>

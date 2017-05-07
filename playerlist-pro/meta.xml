@@ -1,0 +1,6 @@
+﻿<meta>
+	<info name="Playerlist Pro" description="Shows a playerlist when pressing the multiplayer info button." author="Miss Melissa" type="script" />
+
+	<script src="Playerlist.cs" type="server" lang="csharp" />
+	<script src="playerlist.js" type="client" lang="javascript" />
+</meta>
