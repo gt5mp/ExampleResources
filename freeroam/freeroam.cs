@@ -72,7 +72,7 @@ public class FreeroamScript : Script
     {
         if (name == "CREATE_VEHICLE")
         {
-            int model = (int)args[0];
+            var model = (uint)args[0];
 
             if (!Enum.IsDefined(typeof(VehicleHash), model))
                 return;
