@@ -161,13 +161,13 @@ public class CopsNCrooks : Script
 		{
 			if (c == CrookBoss)
 			{
-				API.setPlayerSkin(c, (PedHash)1226102803); // MexBoss02GMM
+				API.setPlayerSkin(c, PedHash.MexBoss02GMM); // MexBoss02GMM
 				API.sendNotificationToPlayer(c, "You are ~r~the boss~w~! Get to the ~y~extraction point~w~ alive!~");				
 			}					
 			else
 			{
 				API.sendNotificationToPlayer(c, "Don't let the ~r~cops~w~ kill your boss!");
-				API.setPlayerSkin(c, (PedHash)(-1773333796)); // MexGoon03GMY
+				API.setPlayerSkin(c, PedHash.MexGoon03GMY); // MexGoon03GMY
 			}
 			CrookRespawn(c);
 			API.setPlayerTeam(c, CrookTeam);			
@@ -187,7 +187,7 @@ public class CopsNCrooks : Script
 			Cops.Add(player);
 		}
 
-		API.setPlayerSkin(player, (PedHash)1581098148); // Cop01SMY
+		API.setPlayerSkin(player, PedHash.Cop01SMY); // Cop01SMY
 
 		API.givePlayerWeapon(player, WeaponHash.Nightstick, 1, true, true);
 		API.givePlayerWeapon(player, WeaponHash.CombatPistol, 300, true, true);
