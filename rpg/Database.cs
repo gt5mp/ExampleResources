@@ -110,7 +110,7 @@ namespace RPGResource
             File.WriteAllText(path, ser);
         }
     }
-
+     
     public class PlayerData
     {
         [XmlIgnore]

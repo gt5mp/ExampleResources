@@ -47,7 +47,7 @@ namespace playerblips_pro
 
 			if (API.isResourceRunning("colorednames")) {
 				API.exported.colorednames.onGotColoredName += new ExportedEvent(ColoredNames_onGotColoredName);
-			}
+			} 
 		}
 
 		private Vector3 ParseColor(string colorHex)

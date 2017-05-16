@@ -466,7 +466,7 @@ public class RaceGamemode : Script
         int color1 = 0;
         int color2 = 0;
 
-        if (inOp != null)
+        if (inOp != null) 
         {
             selectedModel = API.getEntityModel(inOp.Vehicle);
             color1 = API.getVehiclePrimaryColor(inOp.Vehicle);
@@ -474,7 +474,7 @@ public class RaceGamemode : Script
         }
 
         if (selectedModel == 0)
-            selectedModel = unchecked((int)((uint)race.AvailableVehicles[randGen.Next(race.AvailableVehicles.Length)]));
+            selectedModel = unchecked((int)(race.AvailableVehicles[randGen.Next(race.AvailableVehicles.Length)]));
         
             
         var position = CurrentRaceCheckpoints[checkpoint];

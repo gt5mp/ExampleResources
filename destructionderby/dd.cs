@@ -305,7 +305,7 @@ namespace DestructionDerby
         }
 
         private void EndRace()
-        {
+        { 
             IsRaceStarting = false;
             IsRaceOngoing = false;
             CurrentRace = null;
@@ -323,7 +323,7 @@ namespace DestructionDerby
         {
             if (race == null) return;
 
-            var selectedModel = unchecked((int)((uint)race.AvailableVehicles[randGen.Next(race.AvailableVehicles.Length)]));
+            var selectedModel = unchecked((int)(race.AvailableVehicles[randGen.Next(race.AvailableVehicles.Length)]));
             var position = race.SpawnPoints[spawnpoint % race.SpawnPoints.Length].Position;
             var heading = race.SpawnPoints[spawnpoint % race.SpawnPoints.Length].Heading;
 

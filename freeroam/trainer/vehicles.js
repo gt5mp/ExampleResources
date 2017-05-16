@@ -11,7 +11,7 @@ API.onResourceStart.connect(function (sender, e) {
 
 	vehiclesWindow.AddItem(addVehicleItem("T20", 1663218586));
 	vehiclesWindow.AddItem(addVehicleItem("Futo", 2016857647));
-    vehiclesWindow.AddItem(addVehicleItem("Burrito", -1346687836));
+    vehiclesWindow.AddItem(addVehicleItem("Burrito", -1346687836)); 
     vehiclesWindow.AddItem(addVehicleItem("Sanchez", 788045382));
 	vehiclesWindow.AddItem(addVehicleItem("Maverick", -1660661558));
 	vehiclesWindow.AddItem(addVehicleItem("Buzzard", 788747387));

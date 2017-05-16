@@ -69,10 +69,10 @@ public class FreeroamScript : Script
     };
 
     public void onClientEventTrigger(Client sender, string name, object[] args)
-    {
+    { 
         if (name == "CREATE_VEHICLE")
         {
-            var model = (uint)args[0];
+            int model = (int)args[0];
 
             if (!Enum.IsDefined(typeof(VehicleHash), model))
                 return;
@@ -93,8 +93,13 @@ public class FreeroamScript : Script
             {
                 VehicleHistory.Add(sender, new List<NetHandle> { veh });
             }
-
-            API.setPlayerIntoVehicle(sender, veh, -1);
+            
+            API.setPlayerIntoVehicle(sender, veh, -1);        
+        }
+        else if (name == "REQUEST_WEAPON")
+        {
+            int hash = (int)args[0];
+            API.givePlayerWeapon(sender, (WeaponHash)hash, 100, false, false);
         }
     }
 
@@ -435,7 +440,7 @@ public class FreeroamScript : Script
     {
         if (!VehicleHistory.ContainsKey(sender))
             return;
-        foreach(var veh in VehicleHistory[sender])
+        foreach (var veh in VehicleHistory[sender])
             API.deleteEntity(veh);
         VehicleHistory[sender].Clear();
     }
