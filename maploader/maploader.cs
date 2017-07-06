@@ -29,43 +29,43 @@ public class MapLoader : Script
         if (!Directory.Exists("maps"))
         {
             Directory.CreateDirectory("maps");
-
-            var files = Directory.GetFiles("maps", "*.xml");
-            int mapsLoaded = 0;
-            API.consoleOutput("Loading maps...");
-            foreach (var path in files)
-            {
-                mapsLoaded++;
-                using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
-                {
-                    var ser = new XmlSerializer(typeof(Map));
-                    var myMap = (Map) ser.Deserialize(stream);
-
-
-                    foreach (var prop in myMap.Objects)
-                    {
-                        if (prop.Type == ObjectTypes.Prop)
-                        {
-                            if (prop.Quaternion != null)
-                            {
-                                CreatedEntities.Add(API.createObject(prop.Hash, prop.Position, prop.Quaternion));
-                            }
-                            else
-                            {
-                                CreatedEntities.Add(API.createObject(prop.Hash, prop.Position, prop.Rotation));
-                            }
-                        }
-                        else if (prop.Type == ObjectTypes.Vehicle)
-                        {
-                            CreatedEntities.Add(API.createVehicle((VehicleHash) prop.Hash, prop.Position, prop.Rotation,
-                                0, 0));
-                        }
-                    }
-                }
-            }
-
-            API.consoleOutput("Loaded " + mapsLoaded + " maps!");
         }
+		
+		var files = Directory.GetFiles("maps", "*.xml");
+		int mapsLoaded = 0;
+		API.consoleOutput("Loading maps...");
+		foreach (var path in files)
+		{
+			mapsLoaded++;
+			using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+			{
+				var ser = new XmlSerializer(typeof(Map));
+				var myMap = (Map) ser.Deserialize(stream);
+
+
+				foreach (var prop in myMap.Objects)
+				{
+					if (prop.Type == ObjectTypes.Prop)
+					{
+						if (prop.Quaternion != null)
+						{
+							CreatedEntities.Add(API.createObject(prop.Hash, prop.Position, prop.Quaternion));
+						}
+						else
+						{
+							CreatedEntities.Add(API.createObject(prop.Hash, prop.Position, prop.Rotation));
+						}
+					}
+					else if (prop.Type == ObjectTypes.Vehicle)
+					{
+						CreatedEntities.Add(API.createVehicle((VehicleHash) prop.Hash, prop.Position, prop.Rotation,
+							0, 0));
+					}
+				}
+			}
+		}
+
+		API.consoleOutput("Loaded " + mapsLoaded + " maps!");
 
     }
 
