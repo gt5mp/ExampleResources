@@ -8,16 +8,23 @@ function updateScroll() {
 	}		
 }
 
+String.prototype.replaceAll = function (strReplace, strWith) {
+    var esc = strReplace.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    var reg = new RegExp(esc, 'ig');
+    return this.replace(reg, strWith);
+};
+
 function formatMsg(input) {
 	var start = '<span style="color: white;">';
 	var output = start;
 	
-	var pass1 = input.replace("~r~", '</span><span style="color: red;">');
-	var pass2 = pass1.replace("~b~", '</span><span style="color: blue;">');
-	var pass3 = pass2.replace("~g~", '</span><span style="color: green;">');
-	var pass4 = pass3.replace("~p~", '</span><span style="color: purple;">');
+    var pass1 = input.replaceAll("~r~", '</span><span style="color: red;">');
+    var pass2 = pass1.replaceAll("~b~", '</span><span style="color: blue;">');
+    var pass3 = pass2.replaceAll("~g~", '</span><span style="color: green;">');
+    var pass4 = pass3.replaceAll("~p~", '</span><span style="color: purple;">');
+    var pass5 = pass4.replaceAll("~w~", '</span><span style="color: white;">');
 
-	return output + pass4 + "</span>";
+    return output + pass5 + "</span>";
 }
 
 function addMessage(msg) {
@@ -57,13 +64,14 @@ function onKeyUp(event) {
 		{
 			try
 			{
-				resourceCall("commitMessage", m+"");
+                resourceCall("commitMessage", m + "");
+                setFocus(false);
+
 			}
 			catch(err) {
 				$("body").text(err);
 			}
 		}
-		setFocus(false);	
 	}
 }
 /*
