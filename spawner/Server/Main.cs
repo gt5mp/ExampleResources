@@ -8,31 +8,31 @@ using GrandTheftMultiplayer.Shared.Math;
 
 public class Spawner : Script
 {
-    private Dictionary<Client, NetHandle> _vehicleHistory = new Dictionary<Client, NetHandle>();
-    
-    public Spawner()
-    {
-        API.onClientEventTrigger += onClientEventTrigger;
-    }
+	private Dictionary<Client, NetHandle> _vehicleHistory = new Dictionary<Client, NetHandle>();
 
-    public void onClientEventTrigger(Client sender, string name, object[] args)
-    {
-        if (name != "CREATE_VEHICLE") return;
+	public Spawner()
+	{
+		API.onClientEventTrigger += onClientEventTrigger;
+	}
 
-        var model = (uint)args[0];
+	public void onClientEventTrigger(Client sender, string name, object[] args)
+	{
+		if (name != "CREATE_VEHICLE") return;
 
-        if (!Enum.IsDefined(typeof(VehicleHash), model)) return;
+		var model = (int)args[0];
 
-        var rot = API.getEntityRotation(sender.handle);
-        var veh = API.createVehicle((VehicleHash)model, sender.position, new Vector3(0, 0, rot.Z), 0, 0);
+		if (!Enum.IsDefined(typeof(VehicleHash), model)) return;
 
-        if (_vehicleHistory.ContainsKey(sender) && _vehicleHistory[sender] != null && API.doesEntityExist(_vehicleHistory[sender]))
-        {
-            API.deleteEntity(_vehicleHistory[sender]);
-        }
+		var rot = API.getEntityRotation(sender.handle);
+		var veh = API.createVehicle((VehicleHash)model, sender.position, new Vector3(0, 0, rot.Z), 0, 0);
 
-        _vehicleHistory[sender] = veh;
+		if (_vehicleHistory.ContainsKey(sender) && _vehicleHistory[sender] != null && API.doesEntityExist(_vehicleHistory[sender]))
+		{
+			API.deleteEntity(_vehicleHistory[sender]);
+		}
 
-        API.setPlayerIntoVehicle(sender, veh, -1);     
-    }
+		_vehicleHistory[sender] = veh;
+
+		API.setPlayerIntoVehicle(sender, veh, -1);
+	}
 }
