@@ -19,7 +19,7 @@ public class Spawner : Script
     {
         if (name != "CREATE_VEHICLE") return;
 
-        var model = (uint)args[0];
+        var model = int.Parse(args[0].ToString());
 
         if (!Enum.IsDefined(typeof(VehicleHash), model)) return;
 
