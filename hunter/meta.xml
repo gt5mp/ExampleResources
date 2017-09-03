@@ -4,4 +4,5 @@
     <include resource="playerblips" />
 
     <script src="hunter.cs" type="server" lang="csharp" />
+		<script src="hunter.js" type="client" lang="javascript" />
 </meta>

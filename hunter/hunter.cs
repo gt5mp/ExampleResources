@@ -5,6 +5,7 @@ using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
 using GrandTheftMultiplayer.Shared;
 using GrandTheftMultiplayer.Shared.Math;
+using System.Timers;
 
 public class HunterScript : Script
 {
@@ -116,6 +117,7 @@ public class HunterScript : Script
 
 	public void roundstart()
 	{
+		API.triggerClientEventForAll("showMissionPassedMessage", "Round Start", 3000);
 		var players = API.getAllPlayers();
 
 		if (players.Count == 0) return;
@@ -156,7 +158,7 @@ public class HunterScript : Script
 		API.setEntityPosition(animal.handle, spawnp);
 		API.setBlipSprite(aBlip, 141);
 		API.setBlipColor(aBlip, 1);
-		player.invincible = false;
+		API.getPlayerFromHandle(animal).invincible = false;
 		API.sendChatMessageToPlayer(animal, "You are the animal! Collect all the checkpoints to win!");
 
 		roundStart = API.TickCount;
@@ -219,8 +221,7 @@ public class HunterScript : Script
 			API.sendChatMessageToAll("Starting next round in 15 seconds...");
 			animal = null;
 			roundstarted = false;
-			API.sleep(15000);
-			roundstart();
+			showEnd();
 		}
 	}
 
@@ -228,6 +229,22 @@ public class HunterScript : Script
 	{
 		if (roundstarted && player != animal)
 			Spawn(player, player == hawk);
+	}
+
+	public void showEnd()
+	{
+		int countDown = 14;
+		API.triggerClientEventForAll("showMissionPassedMessage", "Round End", 3000);
+		API.triggerClientEventForAll("showLoadingPrompt", "Waiting for next Round", 5);
+		Timer nextRoundTimer = API.startTimer(1000, false, () => {
+			API.triggerClientEventForAll("showOldMessage", "Next Round in " + countDown, 950);
+			countDown--;
+		});
+		API.delay(15000, true, () => {
+			API.stopTimer(nextRoundTimer);
+			API.triggerClientEventForAll("hideLoadingPrompt");
+			roundstart();
+		});
 	}
 
 	public void update()
@@ -255,14 +272,13 @@ public class HunterScript : Script
 						API.sendChatMessageToAll("Starting next round in 15 seconds...");
 						animal = null;
 						roundstarted = false;
-						API.delay(15000, true, () => {
-								roundstart();
-						});
+						showEnd();
 						break;
 					}
 
 					API.setBlipTransparency(pBlip, 255);
 					API.sleep(5000);
+					
 					API.setBlipTransparency(pBlip, 0);
 
 					break;
