@@ -255,8 +255,9 @@ public class HunterScript : Script
 						API.sendChatMessageToAll("Starting next round in 15 seconds...");
 						animal = null;
 						roundstarted = false;
-						API.sleep(15000);
-						roundstart();
+						API.delay(15000, true, () => {
+								roundstart();
+						});
 						break;
 					}
 
