@@ -27,6 +27,8 @@ API.onUpdate.connect(function() {
 			var health = API.getVehicleHealth(car);
 			var rpm = API.getVehicleRPM(car);
 			var velocity = API.getEntityVelocity(car);
+			var fuel = API.getVehicleFuelLevel(car);
+			var currenthighgear = API.getVehicleCurrentGear(car);
 			var speed = Math.sqrt(
 				velocity.X * velocity.X +
 				velocity.Y * velocity.Y +
@@ -36,10 +38,12 @@ API.onUpdate.connect(function() {
 			mainBrowser.call("updateSpeed", speed * 3.6); // from m/s to km/h
 			mainBrowser.call("updateHealth", health);
 			mainBrowser.call("updateRpm", rpm * 10);
+			mainBrowser.call("updateFuel", fuel);
+			mainBrowser.call("updateHighGear", currenthighgear);
 		}
 
 
-		if (inVeh && !lastInVehicle) {
+		if (inVeh && !lastInVehicle) {	
 			API.setCefBrowserHeadless(mainBrowser, false);
 		}
 		if (!inVeh && lastInVehicle) {

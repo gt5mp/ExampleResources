@@ -14,7 +14,7 @@ public class RaceGamemode : Script
     public RaceGamemode()
     {
         API.onUpdate += onUpdate;
-        API.onPlayerDisconnected += onDisconnect;        
+        API.onPlayerDisconnected += onDisconnect;
         API.onPlayerFinishedDownload += onPlayerConnect;
         API.onPlayerRespawn += onPlayerRespawn;
         API.onClientEventTrigger += onClientEvent;
@@ -31,7 +31,7 @@ public class RaceGamemode : Script
     public List<Vector3> CurrentRaceCheckpoints { get; set; }
     public DateTime RaceStart { get; set; }
     public List<NetHandle> Objects { get; set; }
-    public List<Thread> ActiveThreads { get; set; }    
+    public List<Thread> ActiveThreads { get; set; }
     public int RaceStartCountdown { get; set; }
     public DateTime RaceTimer { get; set; }
     public DateTime LastSecond {get; set;}
@@ -79,13 +79,13 @@ public class RaceGamemode : Script
     public void onResourceStop()
     {
         API.triggerClientEventForAll("resetRace");
-        
+
         API.exported.scoreboard.removeScoreboardColumn("race_place");
         API.exported.scoreboard.removeScoreboardColumn("race_checkpoints");
         API.exported.scoreboard.removeScoreboardColumn("race_time");
     }
 
-    private Race parseRace(string mapName, XmlGroup map)
+    private Race parseRace(string mapName, GrandTheftMultiplayer.Server.Util.XmlGroup map)
     {
         var output = new Race();
         output.Name = API.getResourceName(mapName);
@@ -137,7 +137,7 @@ public class RaceGamemode : Script
         return output;
     }
 
-    public void MapChange(string mapName, XmlGroup map)
+    public void MapChange(string mapName, GrandTheftMultiplayer.Server.Util.XmlGroup map)
     {
         EndRace();
 
@@ -209,7 +209,7 @@ public class RaceGamemode : Script
                 {
                     opponent.RacePosition = newPos;
                     API.triggerClientEvent(opponent.Client, "updatePosition", newPos, Opponents.Count, opponent.CheckpointsPassed, CurrentRaceCheckpoints.Count);
-                }                
+                }
             }
         }
 
@@ -252,7 +252,7 @@ public class RaceGamemode : Script
         if (DateTime.Now.Subtract(LastSecond).TotalMilliseconds > 1000)
         {
             LastSecond = DateTime.Now;
-            
+
             if (RaceStartCountdown > 0)
             {
                 RaceStartCountdown--;
@@ -276,7 +276,7 @@ public class RaceGamemode : Script
                 }
             }
         }
-        
+
 
         if (!IsRaceOngoing) return;
 
@@ -433,7 +433,7 @@ public class RaceGamemode : Script
         {
             API.triggerClientEvent(client, "setNextCheckpoint", nextPos, false, false, newDir, race.Checkpoints[1]);
         }
-        
+
         var playerVehicle = API.createVehicle((VehicleHash)selectedModel, position, new Vector3(0, 0, heading), randGen.Next(70), randGen.Next(70));
         API.setPlayerIntoVehicle(client, playerVehicle, -1);
 
@@ -466,7 +466,7 @@ public class RaceGamemode : Script
         int color1 = 0;
         int color2 = 0;
 
-        if (inOp != null) 
+        if (inOp != null)
         {
             selectedModel = API.getEntityModel(inOp.Vehicle);
             color1 = API.getVehiclePrimaryColor(inOp.Vehicle);
@@ -475,8 +475,8 @@ public class RaceGamemode : Script
 
         if (selectedModel == 0)
             selectedModel = unchecked((int)(race.AvailableVehicles[randGen.Next(race.AvailableVehicles.Length)]));
-        
-            
+
+
         var position = CurrentRaceCheckpoints[checkpoint];
         var next = position;
 
@@ -521,7 +521,7 @@ public class RaceGamemode : Script
         }
 
 
-        var playerVehicle = API.createVehicle((VehicleHash)selectedModel, position, new Vector3(0, 0, heading), color1, color2);        
+        var playerVehicle = API.createVehicle((VehicleHash)selectedModel, position, new Vector3(0, 0, heading), color1, color2);
         API.setPlayerIntoVehicle(client, playerVehicle, -1);
 
         lock (Opponents)

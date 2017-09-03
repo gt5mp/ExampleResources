@@ -1,4 +1,3 @@
-var menuPool = API.getMenuPool();
 var menus = [];
 
 // Main menu
@@ -30,11 +29,6 @@ API.onResourceStart.connect(function (sender, e) {
             var vehicle = vehicles[i];
             createSpawnVehicleItem(vehicle.name, vehicle.hash, categoryMenu);
         }
-    }
-
-    // Add all menus to menu pool
-    for (var i = 0; i < menus.length; i++) {
-        menuPool.Add(menus[i]);
     }
 });
 
@@ -76,8 +70,4 @@ API.onKeyDown.connect(function(sender, keyEventArgs) {
 
 		mainMenu.Visible = true;
 	}
-});
-
-API.onUpdate.connect(function(sender, events) {
-	menuPool.ProcessMenus();
 });

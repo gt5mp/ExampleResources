@@ -6,7 +6,6 @@ API.onResourceStart.connect(function (sender, e) {
 	var linkItem = API.createMenuItem("Player Options", "");
 	resource.trainer.mainWindow.AddItem(linkItem);
 	resource.trainer.mainWindow.BindMenuToItem(mainWindow, linkItem);
-	resource.trainer.menuPool.Add(mainWindow);
 
 	var invin = API.createCheckboxItem("Invincibility", "", false);
 
@@ -22,7 +21,7 @@ API.onResourceStart.connect(function (sender, e) {
 
 	ragdoll.CheckboxEvent.connect(function (item, newChecked) {
 		API.callNative("SET_PED_CAN_RAGDOLL", API.getLocalPlayer().Value, newChecked);
-		API.sendNotification("Ragdoll " + (newChecked ? "~g~on" : "~r~off"));		
+		API.sendNotification("Ragdoll " + (newChecked ? "~g~on" : "~r~off"));
 	});
 
 	mainWindow.AddItem(ragdoll);
@@ -31,7 +30,7 @@ API.onResourceStart.connect(function (sender, e) {
 
 	hp.Activated.connect(function (menu, item) {
 		API.setPlayerHealth(100);
-		API.sendNotification("Health ~g~restored.");		
+		API.sendNotification("Health ~g~restored.");
 	});
 
 	mainWindow.AddItem(hp);
@@ -40,7 +39,7 @@ API.onResourceStart.connect(function (sender, e) {
 
 	armor.Activated.connect(function (menu, item) {
 		API.setPlayerArmor(100);
-		API.sendNotification("Armor ~g~restored.");		
+		API.sendNotification("Armor ~g~restored.");
 	});
 
 	mainWindow.AddItem(armor);
@@ -48,7 +47,7 @@ API.onResourceStart.connect(function (sender, e) {
 	var suicide = API.createMenuItem("Suicide", "");
 
 	suicide.Activated.connect(function (menu, item) {
-		API.setPlayerHealth(-1);		
+		API.setPlayerHealth(-1);
 	});
 
 	mainWindow.AddItem(suicide);

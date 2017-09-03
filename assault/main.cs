@@ -77,7 +77,7 @@ public class Assault : Script
         }
     }
 
-	public void MapChange(string name, XmlGroup map)
+	public void MapChange(string name, GrandTheftMultiplayer.Server.Util.XmlGroup map)
 	{
 		EndRound();
 
@@ -113,7 +113,7 @@ public class Assault : Script
             round.Objectives.Add(obj);
 	    }
         #endregion
-        
+
         #region Spawnpoints
 
 	    foreach (var element in map.getElementsByType("spawnpoint"))
@@ -180,20 +180,21 @@ public class Assault : Script
 
         var max = groups.Max(grp => grp.Key);
         availablePoints = groups.First(grp => grp.Key == max).ToArray();
-        
+
         var spawnpoint = availablePoints[_rand.Next(availablePoints.Length)];
-        
+
         player.health = 100;
         player.armor = 0;
         player.removeAllWeapons();
         player.setSkin(spawnpoint.Skins[_rand.Next(spawnpoint.Skins.Length)]);
-        
+
         for (int i = 0; i < spawnpoint.Weapons.Length; i++)
         {
             player.giveWeapon(spawnpoint.Weapons[i], spawnpoint.Ammo[i], true, true);
         }
 
         player.team = spawnpoint.Team;
+				API.setPlayerTeam(player, spawnpoint.Team);
         player.position = spawnpoint.Position;
         player.rotation = new Vector3(0, 0, spawnpoint.Heading);
 
@@ -269,9 +270,9 @@ public class Assault : Script
 
         objective.Blip = API.createBlip(objective.Position);
         objective.Blip.color = 1;
-        
+
         objective.TextLabel = API.createTextLabel("", objective.Position + new Vector3(0, 0, 1.5f), 30f, 1f);
-        
+
         foreach (var player in API.getAllPlayers())
         {
             if (player.team == ATTACKER_TEAM)
@@ -287,7 +288,7 @@ public class Assault : Script
                 API.triggerClientEvent(player, "display_subtitle", "Defend the ~b~objectives~w~!", 120000);
             }
         }
-        
+
         objective.Spawned = true;
 
         CurrentRound.Cleanup.Add(objective.Marker);
@@ -359,7 +360,7 @@ public class Assault : Script
                     API.sendNativeToAllPlayers(Hash.SET_BLIP_FLASHES, objective.Blip, true);
 
                     API.triggerClientEventForAll("set_marker_color", objective.Marker.handle, 7, 219, 21);
-                    
+
                     API.triggerClientEventForAll("play_sound", "GTAO_FM_Events_Soundset", "Enter_1st");
                 }
 
@@ -387,7 +388,7 @@ public class Assault : Script
                     {
                         API.triggerClientEventForAll("play_sound", "GTAO_FM_Events_Soundset", "Shard_Disappear");
                     });
-                    
+
                     SpawnRequiredCheckpoints();
 
                     if (CurrentRound.Objectives.All(o => o.Captured))

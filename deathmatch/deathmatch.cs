@@ -23,7 +23,7 @@ public class Deathmatch : Script
     private Random rInst;
 
     private int killTarget;
-    
+
     public Deathmatch()
     {
         spawns = new List<Vector3>();
@@ -37,10 +37,10 @@ public class Deathmatch : Script
         weapons.Add(WeaponHash.MicroSMG);
         weapons.Add(WeaponHash.PumpShotgun);
         weapons.Add(WeaponHash.CarbineRifle);
-        
+
         rInst = new Random();
 
-               
+
         Killstreaks = new Dictionary<Client, int>();
 
         API.onPlayerConnected += OnPlayerConnected;
@@ -51,8 +51,8 @@ public class Deathmatch : Script
         API.onPlayerDeath += PlayerKilled;
     }
 
-    private void onMapChange(string mapName, XmlGroup map)
-    {     
+    private void onMapChange(string mapName, GrandTheftMultiplayer.Server.Util.XmlGroup map)
+    {
         spawns.Clear();
         weapons.Clear();
         Killstreaks.Clear();
@@ -96,7 +96,7 @@ public class Deathmatch : Script
 
         API.exported.scoreboard.addScoreboardColumn("dm_score", "Score", 80);
         API.exported.scoreboard.addScoreboardColumn("dm_kdr", "Ratio", 80);
-        API.exported.scoreboard.addScoreboardColumn("dm_deaths", "Deaths", 80);        
+        API.exported.scoreboard.addScoreboardColumn("dm_deaths", "Deaths", 80);
         API.exported.scoreboard.addScoreboardColumn("dm_kills", "Kills", 80);
 
         foreach (var player in players)
@@ -152,10 +152,10 @@ public class Deathmatch : Script
         {
             API.givePlayerWeapon(player, gun, 500, false, true);
         }
-        
+
         API.setPlayerHealth(player, 100);
     }
-    
+
     public void OnPlayerConnected(Client player)
     {
         API.setEntitySyncedData(player.handle, "dm_score", 0);
@@ -167,7 +167,7 @@ public class Deathmatch : Script
 
         Respawn(player);
     }
-    
+
     public void OnPlayerRespawn(Client player)
     {
         var pBlip = API.exported.playerblips.getPlayerBlip(player);
@@ -175,8 +175,8 @@ public class Deathmatch : Script
         API.setBlipSprite(pBlip, 1);
         API.setBlipColor(pBlip, 0);
 
-        Respawn(player);        
-    }    
+        Respawn(player);
+    }
 
     private void UpdateScoreboardData(Client player)
     {
@@ -188,9 +188,9 @@ public class Deathmatch : Script
 
     public void PlayerKilled(Client player, NetHandle reason, int weapon)
     {
-        Client killer = null; 
+        Client killer = null;
 
-        if (!reason.IsNull)     
+        if (!reason.IsNull)
         {
             var players = API.getAllPlayers();
             for (var i = 0; i < players.Count; i++)
@@ -198,8 +198,8 @@ public class Deathmatch : Script
                 if (players[i].handle == reason) {
                     killer = players[i];
                     break;
-                }            
-            }        
+                }
+            }
         }
 
         API.setEntitySyncedData(player.handle, "dm_score", API.getEntitySyncedData(player.handle, "dm_score") - 1);
@@ -277,9 +277,9 @@ public class Deathmatch : Script
         {
             if (Killstreaks[player] >= 3 && killer != null)
             {
-                API.sendChatMessageToAll("~b~" + killer.name + "~w~ ruined ~r~" + player.name + "~w~'s killstreak!");                
+                API.sendChatMessageToAll("~b~" + killer.name + "~w~ ruined ~r~" + player.name + "~w~'s killstreak!");
                 API.setBlipColor(pBlip, 0);
-                API.setBlipSprite(pBlip, 1);                
+                API.setBlipSprite(pBlip, 1);
             }
             Killstreaks[player] = 0;
         }
@@ -288,6 +288,6 @@ public class Deathmatch : Script
             Killstreaks.Add(player, 0);
         }
 
-        //API.setBlipSprite(pBlip, 274); // why is it here?        
+        //API.setBlipSprite(pBlip, 274); // why is it here?
     }
 }

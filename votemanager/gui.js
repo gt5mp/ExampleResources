@@ -6,7 +6,7 @@ mainMenu.ResetKey(menuControl.Back);
 mainMenu.OnItemSelect.connect(function(sender, item, index) {
     API.triggerServerEvent("cast_vote", index);
     API.sendChatMessage("You have voted for ~b~" + item.Text + "~w~.");
-    mainMenu.Visible = false;    
+    mainMenu.Visible = false;
 });
 
 API.onServerEventTrigger.connect(function(eventName, args) {
@@ -28,8 +28,4 @@ API.onServerEventTrigger.connect(function(eventName, args) {
     else if (eventName == "end_vote") {
     	mainMenu.Visible = false;
     }
-});
-
-API.onUpdate.connect(function() {
-	API.drawMenu(mainMenu);
 });

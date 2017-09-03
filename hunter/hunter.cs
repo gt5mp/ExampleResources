@@ -5,6 +5,7 @@ using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
 using GrandTheftMultiplayer.Shared;
 using GrandTheftMultiplayer.Shared.Math;
+using System.Timers;
 
 public class HunterScript : Script
 {
@@ -17,7 +18,7 @@ public class HunterScript : Script
 		API.onPlayerRespawn += respawn;
 		API.onPlayerConnected += respawn;
 		API.onPlayerDisconnected += playerleft;
-		API.onPlayerConnected += player => 
+		API.onPlayerConnected += player =>
 		{
 			if (API.getAllPlayers().Count == 1 && !roundstarted)
 			{
@@ -116,6 +117,7 @@ public class HunterScript : Script
 
 	public void roundstart()
 	{
+		API.triggerClientEventForAll("showMissionPassedMessage", "Round Start", 3000);
 		var players = API.getAllPlayers();
 
 		if (players.Count == 0) return;
@@ -156,8 +158,8 @@ public class HunterScript : Script
 		API.setEntityPosition(animal.handle, spawnp);
 		API.setBlipSprite(aBlip, 141);
 		API.setBlipColor(aBlip, 1);
-
-		API.sendChatMessageToPlayer(animal, "You are the animal! Collect all the checkpoints to win!");		
+		API.getPlayerFromHandle(animal).invincible = false;
+		API.sendChatMessageToPlayer(animal, "You are the animal! Collect all the checkpoints to win!");
 
 		roundStart = API.TickCount;
 		lastIdleCheck = API.TickCount;
@@ -187,22 +189,24 @@ public class HunterScript : Script
 
 		if (!hawk)
 		{
-			var skin = _skinList[r.Next(_skinList.Count)];		
+			var skin = _skinList[r.Next(_skinList.Count)];
 			API.setPlayerSkin(player, skin);
 			API.givePlayerWeapon(player, WeaponHash.PumpShotgun, 9999, true, true);
 			API.givePlayerWeapon(player, WeaponHash.SniperRifle, 9999, true, true);
 			API.setBlipTransparency(pBlip, 0);
-			API.setBlipSprite(pBlip, 1);		
+			API.setBlipSprite(pBlip, 1);
+			player.invincible = false;
 		}
 		else
 		{
 			API.setPlayerSkin(player, PedHash.ChickenHawk);
 			API.setBlipTransparency(pBlip, 255);
 			API.setBlipSprite(pBlip, 422);
+			player.invincible = true;
 		}
 		API.setBlipColor(pBlip, 0);
 		API.setEntityPosition(player.handle, _hunterSpawnpoints[r.Next(_hunterSpawnpoints.Count)]);
-		if (animal != null) API.sendChatMessageToPlayer(player, "~r~" + animal.name + "~w~ is the animal! ~r~Hunt~w~ it!");		
+		if (animal != null) API.sendChatMessageToPlayer(player, "~r~" + animal.name + "~w~ is the animal! ~r~Hunt~w~ it!");
 		API.setPlayerTeam(player, TEAM_HUNTER);
 		API.setEntityInvincible(player, false);
 	}
@@ -212,20 +216,35 @@ public class HunterScript : Script
 		if (player == animal)
 		{
 			var killer = API.getPlayerFromHandle(reason);
-			roundstarted = false;			
+			roundstarted = false;
 			API.sendChatMessageToAll("The animal has been killed" + (killer == null ? "!" : " by " + killer.name + "!") + " The hunters win!");
 			API.sendChatMessageToAll("Starting next round in 15 seconds...");
 			animal = null;
 			roundstarted = false;
-			API.sleep(15000);
-			roundstart();
+			showEnd();
 		}
 	}
 
 	public void respawn (Client player)
 	{
-		if (roundstarted && player != animal)		
+		if (roundstarted && player != animal)
 			Spawn(player, player == hawk);
+	}
+
+	public void showEnd()
+	{
+		int countDown = 14;
+		API.triggerClientEventForAll("showMissionPassedMessage", "Round End", 3000);
+		API.triggerClientEventForAll("showLoadingPrompt", "Waiting for next Round", 5);
+		Timer nextRoundTimer = API.startTimer(1000, false, () => {
+			API.triggerClientEventForAll("showOldMessage", "Next Round in " + countDown, 950);
+			countDown--;
+		});
+		API.delay(15000, true, () => {
+			API.stopTimer(nextRoundTimer);
+			API.triggerClientEventForAll("hideLoadingPrompt");
+			roundstart();
+		});
 	}
 
 	public void update()
@@ -253,19 +272,19 @@ public class HunterScript : Script
 						API.sendChatMessageToAll("Starting next round in 15 seconds...");
 						animal = null;
 						roundstarted = false;
-						API.sleep(15000);
-						roundstart();
+						showEnd();
 						break;
 					}
 
 					API.setBlipTransparency(pBlip, 255);
 					API.sleep(5000);
-					API.setBlipTransparency(pBlip, 0);					
+					
+					API.setBlipTransparency(pBlip, 0);
 
 					break;
 				}
 			}
-		
+
 			if (API.TickCount - lastIdleCheck > 20000) // 20 secs
 			{
 				lastIdleCheck = API.TickCount;
@@ -289,7 +308,7 @@ public class HunterScript : Script
 					API.setBlipColor(breadcrumb, 1);
 					API.setBlipTransparency(breadcrumb, 200);
 
-					lastBreadcrumb = API.TickCount;					
+					lastBreadcrumb = API.TickCount;
 				}
 				if (animal != null)
 					lastIdlePosition = API.getEntityPosition(animal.handle);
