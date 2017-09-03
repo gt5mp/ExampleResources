@@ -7,7 +7,6 @@ API.onResourceStart.connect(function (sender, e) {
     var linkItem = API.createMenuItem("Weapons", "");
     resource.trainer.mainWindow.AddItem(linkItem);
     resource.trainer.mainWindow.BindMenuToItem(mainWindow, linkItem);
-    resource.trainer.menuPool.Add(mainWindow);
 
     mainWindow.AddItem(addGunItem("SniperRifle", 100416529));
     mainWindow.AddItem(addGunItem("FireExtinguisher", 101631238));
@@ -60,7 +59,7 @@ API.onResourceStart.connect(function (sender, e) {
     mainWindow.AddItem(addGunItem("Unarmed", -1569615261));
     mainWindow.AddItem(addGunItem("GrenadeLauncher", -1568386805));
     mainWindow.AddItem(addGunItem("Musket", -1466123874));
-    mainWindow.AddItem(addGunItem("ProximityMine", -1420407917)); 
+    mainWindow.AddItem(addGunItem("ProximityMine", -1420407917));
     mainWindow.AddItem(addGunItem("AdvancedRifle", -1357824103));
     mainWindow.AddItem(addGunItem("RPG", -1312131151));
     mainWindow.AddItem(addGunItem("Pipebomb", -1169823560));

@@ -15,7 +15,7 @@ namespace RPGResource
             API.onPlayerEnterVehicle += PlayerEnterCar;
         }
 
-        public void PlayerEnterCar(Client sender, NetHandle vehicle)
+        public void PlayerEnterCar(Client sender, NetHandle vehicle, int targetSeat)
         {
             if (API.getEntityData(sender, "IS_COP") == true) return;
 

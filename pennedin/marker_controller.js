@@ -15,7 +15,7 @@ var lastSphereLeave = 0;
 
 var roundEnd = false;
 
-//"Explosion_Countdown", NETWORK::NET_TO_VEH(l_181/*2*/]._f1), "GTAO_FM_Events_Soundset", 0, 
+//"Explosion_Countdown", NETWORK::NET_TO_VEH(l_181/*2*/]._f1), "GTAO_FM_Events_Soundset", 0,
 
 API.onServerEventTrigger.connect(function (eventName, args) {
 	if (eventName == "pennedin_roundend") {
@@ -74,7 +74,7 @@ API.onServerEventTrigger.connect(function (eventName, args) {
 		interpolationEnd = args[2];
 	}
 
-	if (eventName == "pennedin_setscaledestination") {		
+	if (eventName == "pennedin_setscaledestination") {
 		if (marker == null) return;
 		if (destinationPos != null)
 		{
@@ -137,7 +137,7 @@ API.onUpdate.connect(function(sender, e) {
 
 	    	if (API.getGlobalTime() - lastSphereLeave > 10000) {
 	    		API.explodeVehicle(API.getPlayerVehicle(player));
-	    		API.setPlayerHealth(player, -1);
+	    		API.setPlayerHealth(player, 0);
 	    		API.deleteEntity(marker);
 	    		marker = null;
 	    		roundEnd = true;
