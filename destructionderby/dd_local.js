@@ -17,14 +17,13 @@ function disableControls() {
 voteMenu.OnItemSelect.connect(function(sender, item, index) {
     API.triggerServerEvent("race_castVote", index+1);
     API.sendNotification("You have voted for ~b~" + item.Text + "~w~.");
-    voteMenu.Visible = false;    
+    voteMenu.Visible = false;
 });
 
 
 API.onUpdate.connect(function(sender, args) {
-    disableControls();
-    API.drawMenu(voteMenu);    
-    
+    disableControls();   
+
     if (ghostMode && API.getGlobalTime() - lastCollisionUpdate > 5000 && API.isPlayerInAnyVehicle(API.getLocalPlayer()) ) {
         lastCollisionUpdate = API.getGlobalTime();
         var players = API.getAllPlayers();
@@ -57,7 +56,7 @@ API.onServerEventTrigger.connect(function (eventName, args) {
         API.callNative("REQUEST_SCRIPT_AUDIO_BANK", "HUD_MINI_GAME_SOUNDSET", true);
         API.callNative("PLAY_SOUND_FRONTEND", 0, "CHECKPOINT_NORMAL", "HUD_MINI_GAME_SOUNDSET");
         countdown.CallFunction("FADE_MP", "2", 241, 247, 57);
-        
+
         start = API.getGlobalTime();
         while (API.getGlobalTime() - start < 1000) {
             disableControls();
@@ -69,7 +68,7 @@ API.onServerEventTrigger.connect(function (eventName, args) {
         API.callNative("REQUEST_SCRIPT_AUDIO_BANK", "HUD_MINI_GAME_SOUNDSET", true);
         API.callNative("PLAY_SOUND_FRONTEND", 0, "CHECKPOINT_NORMAL", "HUD_MINI_GAME_SOUNDSET");
         countdown.CallFunction("FADE_MP", "1", 241, 247, 57);
-        
+
         start = API.getGlobalTime();
         while (API.getGlobalTime() - start < 1000) {
             disableControls();
@@ -106,4 +105,3 @@ API.onServerEventTrigger.connect(function (eventName, args) {
         voteMenu.Visible = true;
     }
 });
-

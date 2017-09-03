@@ -3,9 +3,9 @@
   	<head>
     	<meta http-equiv="content-type" content="text/html;charset=utf-8">
     	<title>d3.js gauges</title>
-		
+
 		<style>
-		
+
 			body
 			{
 			  	font: 10px arial;
@@ -13,20 +13,19 @@
 			  	right: 1px;
 			  	bottom: 1px;
 			}
-			
+
 		</style>
-		
+
 		<script type="text/javascript" src="d3.v2.js"></script>
 		<script type="text/javascript" src="gauge.js"></script>
 
 		<script>
-						
-				
+
+
 			var gauges = [];
-			
 			function createGauge(name, label, gSize, min, max, yellowZ, redZ, sublabel)
 			{
-				var config = 
+				var config =
 				{
 					size: gSize,
 					label: label,
@@ -35,17 +34,19 @@
 					max: undefined != max ? max : 100,
 					minorTicks: 5
 				}
-				
-				var range = config.max - config.min;				
+
+				var range = config.max - config.min;
 				config.yellowZones = yellowZ;
 				config.redZones = redZ;
-				
+
 				gauges[name] = new Gauge(name + "GaugeContainer", config);
 				gauges[name].render();
 			}
-			
+
 			function createGauges()
 			{
+				createGauge("highgear", "Gear", 90, 0, 7, [{ from: 0, to: 0 }], [{ from: 0, to: 0 }])
+				createGauge("fuel", "Fuel", 90, 0, 100, [{ from: 6, to: 15 }], [{ from: 0, to: 6 }])
 				createGauge("health", "Health", 120, 0, 1000, [{ from: 100, to: 400 }], [{ from: 0, to: 100 }]);
 				createGauge("speed", "KM/H", 300, 0, 300, [{ from: 210, to: 270 }], [{ from: 270, to: 300 }]);
 				createGauge("rpm", "RPM", 150, 0, 10, [{ from: 7.5, to: 9 }], [{ from: 9, to: 10 }], "x 1000");
@@ -61,25 +62,37 @@
 				gauges["health"].redraw(newHealth);
 			}
 
+			function updateFuel(newFuel)
+			{
+				gauges["fuel"].redraw(newFuel);
+			}
+
+			function updateHighGear(newHighGear)
+			{
+				gauges["highgear"].redraw(newHighGear);
+			}
+
 			function updateRpm(newRpm)
 			{
 				gauges["rpm"].redraw(newRpm);
 			}
-						
+
 			function initialize()
 			{
 				createGauges();
 			}
-			
+
 		</script>
-		
-		
+
+
 	</head>
-	
-	<body onload="initialize()">		
+
+	<body onload="initialize()">
+		<span id="highgearGaugeContainer"></span>
+		<span id="fuelGaugeContainer"></span>
 		<span id="healthGaugeContainer"></span>
 		<span id="rpmGaugeContainer"></span>
 		<span id="speedGaugeContainer"></span>
 	</body>
-	
+
 </html>

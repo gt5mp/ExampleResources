@@ -47,7 +47,7 @@ namespace playerblips_pro
 
 			if (API.isResourceRunning("colorednames")) {
 				API.exported.colorednames.onGotColoredName += new ExportedEvent(ColoredNames_onGotColoredName);
-			} 
+			}
 		}
 
 		private Vector3 ParseColor(string colorHex)
@@ -270,12 +270,12 @@ namespace playerblips_pro
 			}
 		}
 
-		private void API_onPlayerEnterVehicle(Client player, NetHandle vehicle)
+		private void API_onPlayerEnterVehicle(Client player, NetHandle vehicle, int targetSeat)
 		{
 			UpdateBlipForVehicle(vehicle);
 		}
 
-		private void API_onPlayerExitVehicle(Client player, NetHandle vehicle)
+		private void API_onPlayerExitVehicle(Client player, NetHandle vehicle, int fromSeat)
 		{
 			UpdateBlipForVehicle(vehicle);
 

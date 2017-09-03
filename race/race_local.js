@@ -32,7 +32,7 @@ function disableControls() {
 voteMenu.OnItemSelect.connect(function(sender, item, index) {
     API.triggerServerEvent("race_castVote", index+1);
     API.sendNotification("You have voted for ~b~" + item.Text + "~w~.");
-    voteMenu.Visible = false;    
+    voteMenu.Visible = false;
 })
 
 API.onKeyDown.connect(function (sender, keyEventArgs) {
@@ -50,9 +50,8 @@ API.onKeyUp.connect(function (sender, keyEventArgs) {
 
 API.onUpdate.connect(function(sender, args) {
     disableControls();
-    API.drawMenu(voteMenu);    
-    
-    if (racePosition != null) {        
+
+    if (racePosition != null) {
         API.renderScaleform(racePositionScaleform, 80, 150, 1280, 720);
     }
 
@@ -86,7 +85,7 @@ API.onUpdate.connect(function(sender, args) {
 API.onServerEventTrigger.connect(function (eventName, args) {
     if (eventName === "startRaceCountdown") {
         var countdown = API.requestScaleform("countdown");
-        
+
         API.playSoundFrontEnd("HUD_MINI_GAME_SOUNDSET", "CHECKPOINT_NORMAL");
         countdown.CallFunction("FADE_MP", "3", 241, 247, 57);
 
@@ -96,10 +95,10 @@ API.onServerEventTrigger.connect(function (eventName, args) {
             countdown.Render2D();
             API.sleep(0);
         }
-        
+
         API.playSoundFrontEnd("HUD_MINI_GAME_SOUNDSET", "CHECKPOINT_NORMAL");
         countdown.CallFunction("FADE_MP", "2", 241, 247, 57);
-        
+
         start = API.getGlobalTime();
         while (API.getGlobalTime() - start < 1000) {
             disableControls();
@@ -110,7 +109,7 @@ API.onServerEventTrigger.connect(function (eventName, args) {
 
         API.playSoundFrontEnd("HUD_MINI_GAME_SOUNDSET", "CHECKPOINT_NORMAL");
         countdown.CallFunction("FADE_MP", "1", 241, 247, 57);
-        
+
         start = API.getGlobalTime();
         while (API.getGlobalTime() - start < 1000) {
             disableControls();
@@ -183,7 +182,7 @@ API.onServerEventTrigger.connect(function (eventName, args) {
             API.deleteEntity(nextCheckpointMarker);
             nextCheckpointMarker = API.createMarker(1, newPos, new Vector3(), new Vector3(), new Vector3(10, 10, 2), 241, 247, 57, 180);
         }
-        
+
         if (!isFinishLine) {
             if (nextCheckpointDir == null) {
                 nextCheckpointDir = API.createMarker(20, new Vector3(newPos.X, newPos.Y, newPos.Z + 2), newDir, new Vector3(60, 0, 0), new Vector3(4, 4, 4), 87, 193, 250, 100);
@@ -261,4 +260,3 @@ API.onServerEventTrigger.connect(function (eventName, args) {
         racePosition = null;
     }
 });
-

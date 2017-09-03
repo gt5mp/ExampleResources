@@ -1,12 +1,5 @@
-﻿var pool = null;
-
-API.onResourceStart.connect(function() {
-    
-});
-
-API.onServerEventTrigger.connect(function (name, args) {
+﻿API.onServerEventTrigger.connect(function (name, args) {
     if (name == "menu_handler_create_menu") {
-        pool = API.getMenuPool();
 
         var callbackId = args[0];
         var banner = args[1];
@@ -21,7 +14,7 @@ API.onServerEventTrigger.connect(function (name, args) {
         if (noExit) {
             menu.ResetKey(menuControl.Back);
         }
-        
+
         var itemsLen = args[4];
 
         for (var i = 0; i < itemsLen; i++) {
@@ -34,16 +27,5 @@ API.onServerEventTrigger.connect(function (name, args) {
         });
 
         menu.Visible = true;
-
-        pool.Add(menu);
-    }
-    else if (name === "menu_handler_close_menu") {
-        pool = null;
-    }
-});
-
-API.onUpdate.connect(function() {
-    if (pool != null) {
-        pool.ProcessMenus();
     }
 });
