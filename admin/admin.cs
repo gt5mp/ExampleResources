@@ -101,8 +101,7 @@ public class AdminScript : Script
     {
         if (API.doesResourceExist(resource))
         {
-            API.stopResource(resource);
-            API.startResource(resource);
+            API.restartResource(resource);
 
             API.sendChatMessageToPlayer(sender, "~g~Restarted resource \"" + resource + "\"");
         }
@@ -125,11 +124,11 @@ public class AdminScript : Script
     }
 
     #endregion
-    
+
 
 	private void onResStart()
 	{
-		
+
 	}
 
 	public void onPlayerDisconnected(Client player, string reason)
@@ -139,16 +138,16 @@ public class AdminScript : Script
 
 	public void onUpdate()
 	{
-		
+
 	}
 
 	public void onDeath(Client player)
 	{
-		
-	}	
+
+	}
 
 	public void OnPlayerConnected(Client player)
-    {    	
+    {
         var log = API.loginPlayer(player, "");
         if (log == 1)
         {
