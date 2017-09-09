@@ -352,7 +352,7 @@ public class RaceGamemode : Script
     [Command("forcemap", ACLRequired = true, GreedyArg = true)]
     public void ForceMapCommand(Client sender, string mapFilename)
     {
-        if (!API.doesResourceExist(mapFilename) || API.getResourceType(mapFilename) != GrandTheftMultiplayer.Server.Models.ResourceType.map)
+        if (!API.doesResourceExist(mapFilename) || API.getResourceType(mapFilename) != ResourceType.map)
         {
             API.sendChatMessageToPlayer(sender, "Map was not found!");
             return;
@@ -360,9 +360,8 @@ public class RaceGamemode : Script
 
         EndRace();
         API.sendChatMessageToAll("Starting map ~b~" + mapFilename + "!");
-        API.delay(1000, true, () => {
-          API.startResource(mapFilename);
-    		});
+        API.sleep(1000);
+        API.startResource(mapFilename);
     }
 
     public void onPlayerConnect(Client player)
