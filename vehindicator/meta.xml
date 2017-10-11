@@ -1,0 +1,7 @@
+<meta>
+    <info name="Vehicle Indicators" author="rootcause" type="script" description="Adds the ability to use the turn signals of a vehicle. Numpad4 for left, Numpad6 for right indicator." />
+
+    <!-- Files -->
+    <script src="Main.cs" type="server" lang="csharp" />
+    <script src="VehIndicator.js" type="client" lang="javascript" />
+</meta>
