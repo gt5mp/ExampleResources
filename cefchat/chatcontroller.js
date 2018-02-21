@@ -45,11 +45,13 @@ function addMessage(msg, hasColor, r, g, b) {
 	}
 }
 
+let lastCursorState = false;
 function onFocusChange(focus) {
 	if (mainBrowser != null) {
 		mainBrowser.call("setFocus", focus);		
 	}
-	API.showCursor(focus);
+	if (focus) lastCursorState = API.isCursorShown();
+	API.showCursor(focus || lastCursorState);
 }
 
 function onChatHide(hide) {
