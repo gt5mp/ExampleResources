@@ -1,43 +1,62 @@
-var False = false;
-var True = true;
-
 function updateScroll() {
-	var body = $("#chat-body");
+	let body = $("#chat-body");
 	if (body.scrollTop() >= body[0].scrollHeight - 400) {
 		body.scrollTop(body[0].scrollHeight);
 	}		
 }
 
-String.prototype.replaceAll = function (strReplace, strWith) {
-    var esc = strReplace.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-    var reg = new RegExp(esc, 'ig');
+String.prototype.replaceAll = function(strReplace, strWith) {
+    let esc = strReplace.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    let reg = new RegExp(esc, 'ig');
     return this.replace(reg, strWith);
 };
 
-function formatMsg(input) {
-	var start = '<span style="color: white;">';
-	var output = start;
-	
-    var pass1 = input.replaceAll("~r~", '</span><span style="color: red;">');
-    var pass2 = pass1.replaceAll("~b~", '</span><span style="color: blue;">');
-    var pass3 = pass2.replaceAll("~g~", '</span><span style="color: green;">');
-    var pass4 = pass3.replaceAll("~p~", '</span><span style="color: purple;">');
-    var pass5 = pass4.replaceAll("~w~", '</span><span style="color: white;">');
 
-    return output + pass5 + "</span>";
+const defaultColors = { // Based on https://wiki.gt-mp.net/index.php?title=Fonts
+	"~r~": "#DE3232",
+	"~b~": "#5CB4E3",
+	"~g~": "#71CA71",
+	"~y~": "#EEC650",
+	"~p~": "#8365E0",
+	"~q~": "#E24F80",
+	"~o~": "#FD8455",
+	"~c~": "#8B8B8B",
+	"~m~": "#636363",
+	"~w~": "#FFFFFF",
+	"~s~": "#FFFFFF",
+	"~u~": "#000000"
+};
+
+const htmlTags = { // Based on https://www.w3schools.com/html/html_formatting.asp
+	"~h~": "strong",
+	"~i~": "i",
+	"~uline~": "u"
+};
+
+function formatMsg(input) { // You can use: default colors, hex color codes (like ~#ff0000~), HTML tags (from htmlTags dictionary)
+	let output = input;
+	let endOfBlock;
+	
+	for (let key in defaultColors) { // default colors
+		let value = defaultColors[key];
+		output = output.replaceAll(key, '</span><span style="color: '+value+';">');
+	}
+	output = output.replace(/~#([0-9A-F][0-9A-F])([0-9A-F][0-9A-F])([0-9A-F][0-9A-F])~/gi, '</span><span style="color: #$1$2$3;">'); // hex color codes
+	
+	for (let key in htmlTags) { // HTML tags
+		let value = htmlTags[key];
+		endOfBlock = false;
+		while (output.includes(key)) {
+			output = output.replace(key, "<"+(endOfBlock ? "/" : "")+value+">");
+			endOfBlock = !endOfBlock;
+		}
+	}
+	
+    return '<span style="color: white;">' + output + '</span>';
 }
 
 function addMessage(msg) {
-	var child = $("<p>" + formatMsg(msg) + "</p>");
-	child.hide();
-	$("#chat-body").append(child);
-	child.fadeIn();
-
-	updateScroll();
-}
-
-function addColoredMessage(msg, r,g,b) {
-	var child = $('<p style="color: rgb(' + r + ', ' + g + ', ' + b + ');">' + formatMsg(msg) + '</p>');
+	let child = $("<p>" + formatMsg(msg) + "</p>");
 	child.hide();
 	$("#chat-body").append(child);
 	child.fadeIn();
@@ -46,12 +65,13 @@ function addColoredMessage(msg, r,g,b) {
 }
 
 function setFocus(focus) {
-	var mainInput = $("#main-input");
-	if (focus) {		
+	let mainInput = $("#main-input");
+	if (focus) {
 		mainInput.show();
 		mainInput.val("");
 		mainInput.focus();
-	} else {
+	}
+	else {
 		mainInput.hide();
 		mainInput.val("");
 	}
@@ -59,11 +79,9 @@ function setFocus(focus) {
 
 function onKeyUp(event) {
 	if (event.keyCode == 13) {
-		var m = $("#main-input").val();
-		if (m)		
-		{
-			try
-			{
+		let m = $("#main-input").val();
+		if (m) {
+			try {
                 resourceCall("commitMessage", m + "");
                 setFocus(false);
 
@@ -74,8 +92,3 @@ function onKeyUp(event) {
 		}
 	}
 }
-/*
-window.setInterval(function () {
-	addMessage($("#chat-body").scrollTop() + " / " + $("#chat-body")[0].scrollHeight);
-}, 500);
-*/
