@@ -1,5 +1,5 @@
 <meta>
-	<info name="CEF Chat" description="Classic chat replacement made with CEF" author="Guadmaz" />
+	<info name="CEF Chat" description="Classic chat replacement made with CEF" author="Guadmaz (rework by Makro)" type="script" />
 
 	<script src="chatcontroller.js" type="client" lang="javascript" />
 

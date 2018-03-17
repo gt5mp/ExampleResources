@@ -1,9 +1,8 @@
-var mainChat = null;
-var mainBrowser = null;
-
+let mainChat = null;
+let mainBrowser = null;
 
 API.onResourceStart.connect(function() {
-	var res = API.getScreenResolution();
+	const res = API.getScreenResolution();
 	mainBrowser = API.createCefBrowser(res.Width, res.Height);
 	API.waitUntilCefBrowserInit(mainBrowser);
 	API.setCefBrowserPosition(mainBrowser, 0, 0);
@@ -22,7 +21,7 @@ API.onResourceStart.connect(function() {
 
 API.onResourceStop.connect(function() {
 	if (mainBrowser != null) {
-		var localCopy = mainBrowser;
+		let localCopy = mainBrowser;
 		mainBrowser = null;
 		API.destroyCefBrowser(localCopy);
 	}
@@ -36,26 +35,23 @@ function chatTick() {
 
 }
 
-var devToolsShown = false;
+let devToolsShown = false;
 function chatKeyDown(sender, args) {
 }
 
 function addMessage(msg, hasColor, r, g, b) {
 	if (mainBrowser != null) {
-	//if (!hasColor) {
 		mainBrowser.call("addMessage", msg);
-	//} else {
-
-	//}
 	}
 }
 
+let lastCursorState = false;
 function onFocusChange(focus) {
 	if (mainBrowser != null) {
 		mainBrowser.call("setFocus", focus);		
 	}
-
-	API.showCursor(focus);
+	if (focus) lastCursorState = API.isCursorShown();
+	API.showCursor(focus || lastCursorState);
 }
 
 function onChatHide(hide) {
