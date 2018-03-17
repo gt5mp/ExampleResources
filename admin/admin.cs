@@ -42,15 +42,28 @@ public class AdminScript : Script
     }
 
     [Command(ACLRequired = true)]
-    public void SetTime(Client sender, int hours, int minutes)
+    public void SetTime(Client sender, int hours, int minutes = 0)
     {
         API.setTime(hours, minutes);
+    }
+    
+    [Command(ACLRequired = true)]
+    public void MsgAll(Client sender, string message)
+    {
+        API.sendChatMessageToAll("~r~[" + API.getPlayerAclGroup(sender) + "]~y~ " + API.getPlayerName(sender) + ": " + message);
     }
 
     [Command(ACLRequired = true)]
     public void SetWeather(Client sender, int newWeather)
     {
-        API.setWeather(newWeather);
+        if (newWeather < 0 || newWeather > 13)
+        {
+            API.sendChatMessageToPlayer(sender, "~r~You can only use the numbers 0-13!");
+        }
+        else
+        {
+            API.setWeather(newWeather);
+        }
     }
 
     [Command(ACLRequired = true)]
@@ -112,7 +125,7 @@ public class AdminScript : Script
     }
 
     [Command(GreedyArg = true, ACLRequired = true)]
-    public void Kick(Client sender, Client target, string reason)
+    public void Kick(Client sender, Client target, string reason = "")
     {
         API.kickPlayer(target, reason);
     }
