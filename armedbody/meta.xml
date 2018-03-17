@@ -1,0 +1,10 @@
+<meta>
+    <info name="Armed Body" author="rootcause" type="script" description="Displays a player's weapons on their character. https://gt-mp.net/forum/thread/1171-armed-body/ for more information." />
+    
+    <!-- Files -->
+    <script src="ArmedBody.cs" type="server" lang="csharp" />
+
+    <!-- Exported Functions -->
+    <export class="ArmedBody" function="RemovePlayerWeapon" />
+    <export class="ArmedBody" function="RemoveAllPlayerWeapons" />
+</meta>

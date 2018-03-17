@@ -1,0 +1,7 @@
+<meta>
+    <info name="Player Moods" author="rootcause" type="script" description="Allows players to change their mood. F4 to display the menu." />
+
+    <!-- Files -->
+    <script src="Main.cs" type="server" lang="csharp" />
+    <script src="PlayerMoods.js" type="client" lang="javascript" />
+</meta>

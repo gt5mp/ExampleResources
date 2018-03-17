@@ -1,0 +1,10 @@
+<meta>
+    <info name="Character Creator" author="rootcause" type="script" description="Allows players to create custom characters. https://gt-mp.net/forum/thread/1299-custom-character-creator/ for more information." />
+    
+    <!-- Files -->
+    <script src="Main.cs" type="server" lang="csharp" />
+    <script src="CharCreator.js" type="client" lang="javascript" />
+
+    <!-- Libraries -->
+    <assembly ref="Newtonsoft.Json.dll" />
+</meta>
