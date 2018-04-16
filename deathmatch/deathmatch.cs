@@ -150,7 +150,7 @@ public class Deathmatch : Script
         API.setEntityPosition(player.handle, rand);
         foreach(var gun in weapons)
         {
-            API.givePlayerWeapon(player, gun, 500, false, true);
+            API.givePlayerWeapon(player, gun, 500, false);
         }
 
         API.setPlayerHealth(player, 100);

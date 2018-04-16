@@ -191,8 +191,8 @@ public class HunterScript : Script
 		{
 			var skin = _skinList[r.Next(_skinList.Count)];
 			API.setPlayerSkin(player, skin);
-			API.givePlayerWeapon(player, WeaponHash.PumpShotgun, 9999, true, true);
-			API.givePlayerWeapon(player, WeaponHash.SniperRifle, 9999, true, true);
+			API.givePlayerWeapon(player, WeaponHash.PumpShotgun, 9999, true);
+			API.givePlayerWeapon(player, WeaponHash.SniperRifle, 9999, true);
 			API.setBlipTransparency(pBlip, 0);
 			API.setBlipSprite(pBlip, 1);
 			player.invincible = false;
