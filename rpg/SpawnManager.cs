@@ -60,9 +60,9 @@ namespace RPGResource
             API.setEntityPosition(target, _copSpawnpoint);
             API.removeAllPlayerWeapons(target);
 
-            API.givePlayerWeapon(target, WeaponHash.Nightstick, 1, false, true);
-            API.givePlayerWeapon(target, WeaponHash.Pistol, 500, true, true);
-            API.givePlayerWeapon(target, WeaponHash.StunGun, 500, true, true);
+            API.givePlayerWeapon(target, WeaponHash.Nightstick, 1, false);
+            API.givePlayerWeapon(target, WeaponHash.Pistol, 500, true);
+            API.givePlayerWeapon(target, WeaponHash.StunGun, 500, true);
             
             // TODO: Give more weapons depending on level
 
