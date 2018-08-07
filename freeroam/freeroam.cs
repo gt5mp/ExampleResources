@@ -99,7 +99,7 @@ public class FreeroamScript : Script
         else if (name == "REQUEST_WEAPON")
         {
             int hash = (int)args[0];
-            API.givePlayerWeapon(sender, (WeaponHash)hash, 100, false, false);
+            API.givePlayerWeapon(sender, (WeaponHash)hash, 100, false);
         }
     }
 
@@ -477,7 +477,7 @@ public class FreeroamScript : Script
     [Command("weapon", Alias = "w,gun")]
     public void GiveWeaponCommand(Client sender, WeaponHash weapon)
     {
-        API.givePlayerWeapon(sender, weapon, 9999, true, true);
+        API.givePlayerWeapon(sender, weapon, 9999, true);
     }
 
     [Command("weaponcomponent", Alias = "wcomp,wc")]
